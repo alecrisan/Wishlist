@@ -1,0 +1,8 @@
+.product-app {
+  margin: 5px;
+  text-align: center;
+  background: #FFF3E0;
+  border: 1px dashed #FFB74D;
+  border-radius: 5px;
+  color: red;
+}
