@@ -50,6 +50,7 @@ namespace Wishlist
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
 
             services.AddTransient<IItemsService, ItemsService>();
+            services.AddTransient<IQAsService, QAsService>();
             services.AddHttpContextAccessor();
 
             // In production, the React files will be served from this directory

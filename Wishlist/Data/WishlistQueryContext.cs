@@ -16,5 +16,9 @@ namespace Wishlist.Data
         public IQueryable<Item> Items
             => _applicationDbContext.Items
                 .AsNoTracking();
+
+        public IQueryable<QA> QAs
+            => _applicationDbContext.QAs
+                .AsNoTracking();
     }
 }

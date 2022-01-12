@@ -10,8 +10,8 @@ import './custom.css'
 import { Login } from './components/api-authorization/Login';
 import { Logout } from './components/api-authorization/Logout';
 
-const ProductApp = React.lazy(
- () => import('HELP/Test')
+const HelpApp = React.lazy(
+ () => import('HELP/Help')
 );
 
 function App() {
@@ -33,7 +33,7 @@ function App() {
                     </Layout>                            
                 </BrowserRouter>
                 <React.Suspense fallback='Loading...'>
-                    <ProductApp />
+                    <HelpApp />
                 </React.Suspense>
             
         </div>

@@ -1,11 +1,10 @@
 import React from 'react';
 import './App.css';
-import Test from './Test';
+import Help from './Help';
 
 const App = () => (
-  <div className="product-app">
-    <h2>Hi from Product Appp</h2>
-    <Test/>
+  <div>
+    <Help/>
   </div>
 );
 export default App;

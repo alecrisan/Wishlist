@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Accordion from 'react-bootstrap/Accordion';
-import './Test.css';
+import './Help.css';
 
-class Test extends React.Component {
+class Help extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -60,4 +60,4 @@ async populateItemsData() {
   }
 }
 
-export default Test;
+export default Help;
