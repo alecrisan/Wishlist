@@ -1,0 +1,49 @@
+.title {
+    padding: 20px;
+}
+.container {
+    list-style:none;
+  }
+
+  .item {
+    background: linear-gradient(#fff, #f0ecf6);
+    padding: 5px;
+    width: 200px;
+    height: 150px;
+    margin: 10px;
+    
+    line-height: 1.5;
+    color: black;
+    font-size: 1.5em;
+    text-align: center;
+    box-shadow: 1px 4px 15px #888888;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  
+  .item:hover {
+    transform: scale(1.1);
+  }
+
+  .flex {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    
+    flex-flow: row wrap;
+    -webkit-flex-flow: row wrap;
+    justify-content: space-around;
+  }
+  
+  .delete {
+      margin: 10px;
+      background-color: firebrick !important
+  }

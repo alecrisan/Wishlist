@@ -1,0 +1,94 @@
+import React, { Component } from 'react';
+import AddItemModal from './AddItemModal';
+import Spinner from 'react-bootstrap/Spinner';
+import Button from 'react-bootstrap/Button';
+import './Home.css';
+
+export class Home extends Component {
+  static displayName = Home.name;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+        items: [],
+        loading: true,
+        items: [],
+        isAuthenticated: false,
+        role: null};
+
+        this.handleDelete = this.handleDelete.bind(this);
+}
+
+componentDidMount() {
+    //this._subscription = authService.subscribe(() => this.populateState());
+    //this.populateState();
+    this.populateItemsData();
+}
+
+// componentWillUnmount() {
+//     authService.unsubscribe(this._subscription);
+// }
+
+// async populateState() {
+//   const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+//   this.setState({
+//       isAuthenticated,
+//       role: user && user.role
+//   });
+// }
+
+async populateItemsData() {
+  //const token = await authService.getAccessToken();
+  // const response = await fetch("/api/items", {
+  //     headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+  // });
+  const response = await fetch("/api/items");
+  const data = await response.json();
+  this.setState({ items: data, loading: false});
+}
+
+async handleDelete(idDeleted) {
+  var items = this.state.items.filter(item => item.id !== idDeleted)
+
+  this.setState({ items: items });
+
+  await fetch("/api/items/" + idDeleted, {
+      method: 'DELETE'
+  }).then(response => response.json())
+      .catch((error => {
+          console.log(error);
+      }));
+}
+
+  render () {
+    let _this = this;
+    return (
+      <div>
+        <h1 className="title">Alexandra's Wishlist</h1>
+        {
+          this.state.loading ?  
+          <div style={{ display: 'flex', justifyContent: 'center', marginRight: '180px' }}>
+          <Spinner animation="border" role="status">
+              <span className="sr-only"></span>
+          </Spinner>
+          </div>
+          : 
+          <div>
+            {this.state.items.length !== 0 ? <h1><i></i></h1> : <h3>No available items</h3>}
+            <ul className="container flex">          
+              {this.state.items.map(function (elem, index) {
+                  return <li key={index} className="item flex-item">
+                            {elem.name}
+                            <div >
+                              <Button onClick={() => _this.handleDelete(elem.id)} className="delete"><i className="fa fa-trash-o"/></Button>
+                            </div>                  
+                        </li>;
+              })}
+              <AddItemModal/>
+            </ul>
+          </div>           
+        }           
+      </div>     
+    );
+  }
+}
