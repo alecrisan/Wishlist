@@ -11,7 +11,7 @@ import { Login } from './components/api-authorization/Login';
 import { Logout } from './components/api-authorization/Logout';
 
 const ProductApp = React.lazy(
- () => import('PRODUCT/Test')
+ () => import('HELP/Test')
 );
 
 function App() {

@@ -44,7 +44,7 @@ module.exports = {
                 name: 'WISHLIST',
                 filename: 'remoteEntry.js',
                 remotes: {
-                    PRODUCT: `PRODUCT@http://localhost:3002/remoteEntry.js`
+                    HELP: `HELP@http://localhost:3002/remoteEntry.js`
                 },
                 shared: [
                     {
