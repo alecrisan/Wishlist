@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import AddItemModal from './AddItemModal';
 import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
+import authService from './api-authorization/AuthorizeService';
 import './Home.css';
 
 export class Home extends Component {
@@ -14,35 +15,35 @@ export class Home extends Component {
         loading: true,
         items: [],
         isAuthenticated: false,
-        role: null};
+        role: null
+      };
 
         this.handleDelete = this.handleDelete.bind(this);
 }
 
 componentDidMount() {
-    //this._subscription = authService.subscribe(() => this.populateState());
-    //this.populateState();
+    this._subscription = authService.subscribe(() => this.populateState());
+    this.populateState();
     this.populateItemsData();
 }
 
-// componentWillUnmount() {
-//     authService.unsubscribe(this._subscription);
-// }
+componentWillUnmount() {
+    authService.unsubscribe(this._subscription);
+}
 
-// async populateState() {
-//   const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
-//   this.setState({
-//       isAuthenticated,
-//       role: user && user.role
-//   });
-// }
+async populateState() {
+  const [isAuthenticated, user] = await Promise.all([authService.isAuthenticated(), authService.getUser()])
+  this.setState({
+      isAuthenticated,
+      role: user && user.role
+  });
+}
 
 async populateItemsData() {
-  //const token = await authService.getAccessToken();
-  // const response = await fetch("/api/items", {
-  //     headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
-  // });
-  const response = await fetch("/api/items");
+  const token = await authService.getAccessToken();
+  const response = await fetch("/api/items", {
+      headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+  });
   const data = await response.json();
   this.setState({ items: data, loading: false});
 }
@@ -64,7 +65,7 @@ async handleDelete(idDeleted) {
     let _this = this;
     return (
       <div>
-        <h1 className="title">Alexandra's Wishlist</h1>
+        <h1 className="title">My Wishlist</h1>
         {
           this.state.loading ?  
           <div style={{ display: 'flex', justifyContent: 'center', marginRight: '180px' }}>

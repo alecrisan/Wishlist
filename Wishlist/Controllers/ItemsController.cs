@@ -6,7 +6,7 @@ using Wishlist.ViewModels;
 
 namespace Wishlist.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ItemsController : ControllerBase
