@@ -9,12 +9,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 const baseUrl = document.getElementsByTagName('base')[0].getAttribute('href');
 const rootElement = document.getElementById('root');
 
-ReactDOM.render(
-  
-    <App />
-  ,
+ReactDOM.render( 
+    <App />,
   rootElement);
-
 
 
 // Uncomment the line above that imports the registerServiceWorker function

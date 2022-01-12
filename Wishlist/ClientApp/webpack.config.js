@@ -1,12 +1,20 @@
 ﻿const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 const ModuleFederationPlugin = require('webpack/lib/container/ModuleFederationPlugin');
 const deps = require('./package.json').dependencies;
 const path = require('path');
 module.exports = {
     mode: 'development',
+    entry: "./src/index",
     devServer: {
         port: 3001,
         historyApiFallback: true
+    },
+    output: {
+        uniqueName: 'WISHLIST',
+        publicPath: 'auto',
+        filename: '[name].js',
+        chunkFilename: '[name][chunkhash].js'
     },
     module: {
         rules: [
@@ -36,14 +44,18 @@ module.exports = {
                 name: 'WISHLIST',
                 filename: 'remoteEntry.js',
                 remotes: {
-                    PRODUCT: 'PRODUCT@http://localhost:3002/remoteEntry.js'
+                    PRODUCT: `PRODUCT@http://localhost:3002/remoteEntry.js`
                 },
                 shared: [
                     {
                         ...deps,
-                        react: { requiredVersion: deps.react, singleton: true },
+                        'react': { requiredVersion: deps.react, singleton: true },
                         'react-dom': {
                             requiredVersion: deps['react-dom'],
+                            singleton: true,
+                        },
+                        'react-router-dom': {
+                            requiredVersion: deps['react-router-dom'],
                             singleton: true,
                         },
                     },
@@ -53,6 +65,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template:
                 './public/index.html',
+            chunks: ["main"]
         }),
     ],
 };

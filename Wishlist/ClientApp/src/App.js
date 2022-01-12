@@ -10,14 +10,14 @@ import './custom.css'
 import { Login } from './components/api-authorization/Login';
 import { Logout } from './components/api-authorization/Logout';
 
-// const ProductApp = React.lazy(
-//  () => import('PRODUCT/App')
-// );
+const ProductApp = React.lazy(
+ () => import('PRODUCT/Test')
+);
 
 function App() {
     return (
         <div>
-                <BrowserRouter>
+              <BrowserRouter>
                     <Layout>
                         <Routes>
                             <Route path="/" element={<Home />} />
@@ -30,12 +30,11 @@ function App() {
                             <Route path={ApplicationPaths.LogOutCallback} element={<Logout action={LogoutActions.LogoutCallback}/>} />
                             <Route path={ApplicationPaths.LoggedOut} element={<Logout action={LogoutActions.LoggedOut}/>} />
                         </Routes>
-                    </Layout>
-                             
+                    </Layout>                            
                 </BrowserRouter>
-                {/* <React.Suspense fallback='Loading...'>
+                <React.Suspense fallback='Loading...'>
                     <ProductApp />
-                </React.Suspense> */}
+                </React.Suspense>
             
         </div>
     );

@@ -68,11 +68,14 @@ async handleDelete(idDeleted) {
         <h1 className="title">My Wishlist</h1>
         {
           this.state.loading ?  
+          this.state.isAuthenticated ?
           <div style={{ display: 'flex', justifyContent: 'center', marginRight: '180px' }}>
           <Spinner animation="border" role="status">
               <span className="sr-only"></span>
           </Spinner>
           </div>
+          :
+          <div>You must be logged in to view your wishlist.</div>
           : 
           <div>
             {this.state.items.length !== 0 ? <h1><i></i></h1> : <h3>No available items</h3>}
