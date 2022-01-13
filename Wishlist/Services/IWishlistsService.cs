@@ -6,5 +6,7 @@ namespace Wishlist.Services
     public interface IWishlistsService
     {
         Task<WishlistViewModel> GetWishlistByUserAsync();
+
+        Task AddWishlistAsync();
     }
 }

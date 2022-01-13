@@ -23,5 +23,13 @@ namespace Wishlist.Controllers
             var wishlist = await _wishlistsService.GetWishlistByUserAsync();
             return Ok(wishlist);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> AddWishlistAsync()
+        {
+            await _wishlistsService.AddWishlistAsync();
+            return NoContent();
+        }
+
     }
 }

@@ -39,12 +39,21 @@ async populateState() {
   });
 }
 
+async addWishlist(token) {
+  await fetch('/api/wishlists', {
+    method: 'POST',
+    headers: !token ? {} : { 'Authorization': `Bearer ${token}`, 'Content-type': 'application/json' }
+    }).then(response => response.json())
+
+}
+
 async populateItemsData() {
-   const token = await authService.getAccessToken();
-  const response = await fetch("/api/wishlists", {
+   const token = await authService.getAccessToken(); 
+    this.addWishlist(token);
+    const response = await fetch("/api/wishlists", {
     headers: !token ? {} : { 'Authorization': `Bearer ${token}`,
     'Content-type': 'application/json' }
-});
+    });
   const data = await response.json();
   this.setState({ items: data.items, loading: false});
 }
@@ -84,7 +93,7 @@ async handleDelete(idDeleted) {
               {this.state.items && this.state.items.map(function (elem, index) {
                   return <li key={index} className="item flex-item">
                             {elem.name}
-                            <div >
+                            <div>
                               <Button onClick={() => _this.handleDelete(elem.id)} className="delete"><i className="fa fa-trash-o"/></Button>
                               <EditItemModal item={elem}/>
                             </div>  
