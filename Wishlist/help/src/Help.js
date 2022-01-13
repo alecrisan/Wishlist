@@ -36,7 +36,7 @@ async populateItemsData() {
           <Accordion.Item eventKey="0">
             <Accordion.Header>General</Accordion.Header>
             <Accordion.Body>
-            {this.state.general.map(function (elem, index) {
+            {this.state.general && this.state.general.map(function (elem, index) {
                   return <Accordion>
                   <Accordion.Item eventKey="10">
                     <Accordion.Header>{elem.question}</Accordion.Header>
@@ -49,7 +49,7 @@ async populateItemsData() {
           <Accordion.Item eventKey="1">
             <Accordion.Header>Items</Accordion.Header>
             <Accordion.Body>
-            {this.state.items.map(function (elem, index) {
+            {this.state.items && this.state.items.map(function (elem, index) {
                   return <Accordion>
                   <Accordion.Item eventKey="20">
                     <Accordion.Header>{elem.question}</Accordion.Header>
@@ -62,7 +62,7 @@ async populateItemsData() {
           <Accordion.Item eventKey="2">
             <Accordion.Header>Other</Accordion.Header>
             <Accordion.Body>
-            {this.state.other.map(function (elem, index) {
+            {this.state.other && this.state.other.map(function (elem, index) {
                   return <Accordion>
                   <Accordion.Item eventKey="30">
                     <Accordion.Header>{elem.question}</Accordion.Header>

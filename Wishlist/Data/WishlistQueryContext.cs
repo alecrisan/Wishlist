@@ -20,5 +20,14 @@ namespace Wishlist.Data
         public IQueryable<QA> QAs
             => _applicationDbContext.QAs
                 .AsNoTracking();
+
+        public IQueryable<ApplicationUser> Users
+            => _applicationDbContext.Users
+               .AsNoTracking();
+
+        public IQueryable<Wishlist.Models.Wishlist> Wishlists
+            => _applicationDbContext.Wishlists
+                .Include(x => x.Items)
+               .AsNoTracking();
     }
 }

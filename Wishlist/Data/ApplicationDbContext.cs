@@ -17,5 +17,7 @@ namespace Wishlist.Data
         public DbSet<Item> Items { get; set; }
 
         public DbSet<QA> QAs { get; set; }
+
+        public DbSet<Wishlist.Models.Wishlist> Wishlists { get; set; }
     }
 }

@@ -14,7 +14,6 @@ export class Home extends Component {
     this.state = {
         items: [],
         loading: true,
-        items: [],
         isAuthenticated: false,
         role: null
       };
@@ -41,12 +40,13 @@ async populateState() {
 }
 
 async populateItemsData() {
-  const token = await authService.getAccessToken();
-  const response = await fetch("/api/items", {
-      headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
-  });
+   const token = await authService.getAccessToken();
+  const response = await fetch("/api/wishlists", {
+    headers: !token ? {} : { 'Authorization': `Bearer ${token}`,
+    'Content-type': 'application/json' }
+});
   const data = await response.json();
-  this.setState({ items: data, loading: false});
+  this.setState({ items: data.items, loading: false});
 }
 
 async handleDelete(idDeleted) {
@@ -79,9 +79,9 @@ async handleDelete(idDeleted) {
           <div>You must be logged in to view your wishlist.</div>
           : 
           <div>
-            {this.state.items.length !== 0 ? <h1><i></i></h1> : <h3>No available items</h3>}
+            { this.state.items && this.state.items.length !== 0 ? <h1><i></i></h1> : <h3>No available items</h3>}
             <ul className="container flex">          
-              {this.state.items.map(function (elem, index) {
+              {this.state.items && this.state.items.map(function (elem, index) {
                   return <li key={index} className="item flex-item">
                             {elem.name}
                             <div >

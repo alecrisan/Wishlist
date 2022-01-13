@@ -15,5 +15,7 @@ namespace Wishlist.Models
 
         [Required]
         public int Price { get; set; }
+
+        public Wishlist Wishlist { get; set; }
     }
 }

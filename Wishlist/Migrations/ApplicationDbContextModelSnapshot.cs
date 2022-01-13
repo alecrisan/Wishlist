@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Wishlist.Data;
 
-namespace Wishlist.Data.Migrations
+namespace Wishlist.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -329,7 +329,12 @@ namespace Wishlist.Data.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int?>("WishlistId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("WishlistId");
 
                     b.ToTable("Items");
                 });
@@ -356,6 +361,21 @@ namespace Wishlist.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("QAs");
+                });
+
+            modelBuilder.Entity("Wishlist.Models.Wishlist", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Wishlists");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -407,6 +427,20 @@ namespace Wishlist.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Wishlist.Models.Item", b =>
+                {
+                    b.HasOne("Wishlist.Models.Wishlist", "Wishlist")
+                        .WithMany("Items")
+                        .HasForeignKey("WishlistId");
+
+                    b.Navigation("Wishlist");
+                });
+
+            modelBuilder.Entity("Wishlist.Models.Wishlist", b =>
+                {
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

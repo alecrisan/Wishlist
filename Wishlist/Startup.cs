@@ -1,4 +1,5 @@
 using System.Reflection;
+using System.Text.Json.Serialization;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -44,13 +45,15 @@ namespace Wishlist
                 .AddIdentityServerJwt();
 
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            //services.AddControllers().AddJsonOptions(x =>
+            //x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 
             services.AddScoped<WishlistQueryContext>();
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
 
             services.AddTransient<IItemsService, ItemsService>();
             services.AddTransient<IQAsService, QAsService>();
+            services.AddTransient<IWishlistsService, WishlistsService>();
             services.AddHttpContextAccessor();
 
             // In production, the React files will be served from this directory

@@ -46,7 +46,7 @@ export default class EditItemModal extends Component {
         return (
             <div> 
                 <Button bsstyle="primary" bssize="large" onClick={this.handleShow} style={{ backgroundColor: 'indigo' }}>
-                    <i class="fa fa-edit"></i>
+                    <i className="fa fa-edit"></i>
                 </Button>
           
                 <Modal show={this.state.show} onHide={this.handleClose} centered>
