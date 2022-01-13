@@ -6,7 +6,9 @@ class Help extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-        items: []
+        general: [],
+        items: [],
+        other: []
       };
 }
 
@@ -15,9 +17,16 @@ componentDidMount() {
 }
 
 async populateItemsData() {
-  // const response = await fetch("/api/items");
-  // const data = await response.json();
-  // this.setState({ items: data});
+  const responseGeneral = await fetch("/api/qas/0");
+  const dataGeneral = await responseGeneral.json();
+
+  const responseItems = await fetch("/api/qas/1");
+  const dataItems = await responseItems.json();
+
+  const responseOther = await fetch("/api/qas/2");
+  const dataOther = await responseOther.json();
+
+  this.setState({ general: dataGeneral, items: dataItems, other: dataOther });
 }
   render() {
     return (
@@ -27,34 +36,43 @@ async populateItemsData() {
           <Accordion.Item eventKey="0">
             <Accordion.Header>General</Accordion.Header>
             <Accordion.Body>
-              <Accordion>
-                <Accordion.Item eventKey="10">
-                  <Accordion.Header>How do I create a wishlist?</Accordion.Header>
-                  <Accordion.Body>idk</Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="11">
-                  <Accordion.Header>Can I install it on my phone?</Accordion.Header>
-                  <Accordion.Body>idk</Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
+            {this.state.general.map(function (elem, index) {
+                  return <Accordion>
+                  <Accordion.Item eventKey="10">
+                    <Accordion.Header>{elem.question}</Accordion.Header>
+                    <Accordion.Body>{elem.answer}</Accordion.Body>
+                  </Accordion.Item>
+                  </Accordion>;
+              })}
             </Accordion.Body>
           </Accordion.Item>
           <Accordion.Item eventKey="1">
             <Accordion.Header>Items</Accordion.Header>
             <Accordion.Body>
-            <Accordion>
-                <Accordion.Item eventKey="20">
-                  <Accordion.Header>How do I add an item to my wishlist?</Accordion.Header>
-                  <Accordion.Body>idk</Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="21">
-                  <Accordion.Header>How do I delete an item?</Accordion.Header>
-                  <Accordion.Body>idk</Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
+            {this.state.items.map(function (elem, index) {
+                  return <Accordion>
+                  <Accordion.Item eventKey="20">
+                    <Accordion.Header>{elem.question}</Accordion.Header>
+                    <Accordion.Body>{elem.answer}</Accordion.Body>
+                  </Accordion.Item>
+                  </Accordion>;
+              })}
             </Accordion.Body>
           </Accordion.Item>
-    </Accordion>
+          <Accordion.Item eventKey="2">
+            <Accordion.Header>Other</Accordion.Header>
+            <Accordion.Body>
+            {this.state.other.map(function (elem, index) {
+                  return <Accordion>
+                  <Accordion.Item eventKey="30">
+                    <Accordion.Header>{elem.question}</Accordion.Header>
+                    <Accordion.Body>{elem.answer}</Accordion.Body>
+                  </Accordion.Item>
+                  </Accordion>;
+              })}
+            </Accordion.Body>
+          </Accordion.Item>
+        </Accordion>
       </div>    
       );
   }

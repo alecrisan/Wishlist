@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import './AddItemModal.css';
 
 export default class AddItemModal extends Component {
     constructor(props, context) {
@@ -57,10 +58,10 @@ export default class AddItemModal extends Component {
                                 <Form.Label>Description</Form.Label>
                                 <Form.Control name="description" ref="description" as="textarea"/>
                             </Form.Group>
-                            <div className="float-right">
-                                <Button type="submit" onClick={this.handleAdd} style={{ margin: "5px", backgroundColor: 'mediumpurple', border: 'none' }}>
+                            <div className="buttons">
+                                <Button type="submit" onClick={this.handleAdd} style={{ margin: "5px", backgroundColor: 'indigo', border: 'none' }}>
                                     Submit </Button>
-                                <Button onClick={this.handleClose} style={{ backgroundColor: 'mediumpurple', border: 'none' }}>Cancel</Button>
+                                <Button onClick={this.handleClose} style={{ backgroundColor: 'indigo', border: 'none' }}>Cancel</Button>
                             </div>
                         </Form>
                     </Modal.Body>

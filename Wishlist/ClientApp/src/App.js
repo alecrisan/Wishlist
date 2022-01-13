@@ -5,7 +5,6 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 import { ApplicationPaths, LoginActions, LogoutActions } from './components/api-authorization/ApiAuthorizationConstants';
-
 import './custom.css'
 import { Login } from './components/api-authorization/Login';
 import { Logout } from './components/api-authorization/Logout';
@@ -41,21 +40,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-//import React from 'react';
-// import './App.css';
-// const ProductApp = React.lazy(
-//  () => import('PRODUCT/Test')
-// );
-// const App = () => (
-//  <div className="App">
-//    <h2>Hi from Shell App</h2>
-//     <React.Suspense fallback='Loading...'>
-//      <ProductApp />
-//    </React.Suspense>
-//  </div>
-// );
-// export default App;
