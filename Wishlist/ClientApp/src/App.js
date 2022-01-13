@@ -8,6 +8,7 @@ import { ApplicationPaths, LoginActions, LogoutActions } from './components/api-
 import './custom.css'
 import { Login } from './components/api-authorization/Login';
 import { Logout } from './components/api-authorization/Logout';
+import './App.css';
 
 const HelpApp = React.lazy(
  () => import('HELP/Help')

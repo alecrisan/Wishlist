@@ -55,7 +55,7 @@ export default class EditItemModal extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <Form.Group controlId="formGroupName">
+                            <Form.Group controlId="formGroupName" style={{ marginBottom: "10px"}}>
                                 <Form.Label>Name<i style={{ color: "red" }}>*</i></Form.Label>
                                 <Form.Control name="name" ref="name" required  defaultValue={this.props.item.name}/>
                             </Form.Group>

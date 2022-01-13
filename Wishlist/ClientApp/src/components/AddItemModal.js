@@ -50,7 +50,7 @@ export default class AddItemModal extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Form>
-                            <Form.Group controlId="formGroupName">
+                            <Form.Group controlId="formGroupName" style={{ marginBottom: "10px"}}>
                                 <Form.Label>Name<i style={{ color: "red" }}>*</i></Form.Label>
                                 <Form.Control name="name" ref="name" required />
                             </Form.Group>
