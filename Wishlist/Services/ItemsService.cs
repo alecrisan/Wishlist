@@ -26,6 +26,14 @@ namespace Wishlist.Services
                 Description = viewModel.Description
             });
 
+        public Task EditItemAsync(ItemViewModel viewModel)
+            => _mediator.Send(new EditItemCommand
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name,
+                Description = viewModel.Description
+            });
+
         public Task DeleteItemAsync(int id)
             => _mediator.Send(new DeleteItemCommand
             {

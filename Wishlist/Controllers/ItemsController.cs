@@ -32,6 +32,13 @@ namespace Wishlist.Controllers
             return NoContent();
         }
 
+        [HttpPut]
+        public async Task<ActionResult> EditItemAsync(ItemViewModel itemViewModel)
+        {
+            await _itemsService.EditItemAsync(itemViewModel);
+            return NoContent();
+        }
+
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteItemAsync(int id)
         {

@@ -4,6 +4,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import authService from './api-authorization/AuthorizeService';
 import './Home.css';
+import EditItemModal from './EditItemModal';
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -85,7 +86,8 @@ async handleDelete(idDeleted) {
                             {elem.name}
                             <div >
                               <Button onClick={() => _this.handleDelete(elem.id)} className="delete"><i className="fa fa-trash-o"/></Button>
-                            </div>                  
+                              <EditItemModal item={elem}/>
+                            </div>  
                         </li>;
               })}
               <AddItemModal/>

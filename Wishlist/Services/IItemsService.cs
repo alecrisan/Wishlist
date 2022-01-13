@@ -10,6 +10,8 @@ namespace Wishlist.Services
 
         Task AddItemAsync(ItemViewModel viewModel);
 
+        Task EditItemAsync(ItemViewModel viewModel);
+
         Task DeleteItemAsync(int id);
     }
 }
