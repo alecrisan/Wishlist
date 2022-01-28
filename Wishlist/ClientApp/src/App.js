@@ -34,8 +34,7 @@ function App() {
                 </BrowserRouter>
                 <React.Suspense fallback='Loading...'>
                     <HelpApp />
-                </React.Suspense>
-            
+                </React.Suspense>            
         </div>
     );
 }

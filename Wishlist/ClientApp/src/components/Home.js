@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import authService from './api-authorization/AuthorizeService';
 import './Home.css';
 import EditItemModal from './EditItemModal';
+import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 
 export class Home extends Component {
   static displayName = Home.name;
@@ -47,8 +48,37 @@ async addWishlist(token) {
 
 }
 
+establishConnection() {
+  const connection = new HubConnectionBuilder()
+    .withUrl("https://localhost:5001/messagehub")
+    .withAutomaticReconnect()
+    .build();
+
+  connection
+      .start()
+      .then(() => console.log('Connection started!'))
+      .catch(err => console.log('Error while establishing connection :('));
+
+  connection.on("ReceiveMessage", (message) => {
+    console.log(message);
+    const li = document.createElement("li");
+    li.textContent = `${message}`;
+    li.className = 'notification';
+    document.getElementById("messageList").appendChild(li);
+  });
+
+    connection.onreconnecting(error => {
+    console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
+    console.log("reconnecting");
+    const li = document.createElement("li");
+    li.textContent = `Connection lost due to error "${error}". Reconnecting.`;
+    document.getElementById("messageList").appendChild(li);
+});
+}
+
 async populateItemsData() {
-   const token = await authService.getAccessToken(); 
+
+  const token = await authService.getAccessToken(); 
     this.addWishlist(token);
     const response = await fetch("/api/wishlists", {
     headers: !token ? {} : { 'Authorization': `Bearer ${token}`,
@@ -56,6 +86,8 @@ async populateItemsData() {
     });
   const data = await response.json();
   this.setState({ items: data.items, loading: false});
+
+  this.establishConnection();
 }
 
 async handleDelete(idDeleted) {
@@ -101,6 +133,9 @@ async handleDelete(idDeleted) {
               })}
               <AddItemModal/>
             </ul>
+            <div className="container-notif">
+              <ul id="messageList"></ul>
+            </div>          
           </div>           
         }           
       </div>     

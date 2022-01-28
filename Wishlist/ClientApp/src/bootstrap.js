@@ -13,7 +13,6 @@ ReactDOM.render(
     <App />,
   rootElement);
 
-
 // Uncomment the line above that imports the registerServiceWorker function
 // and the line below to register the generated service worker.
 // By default create-react-app includes a service worker to improve the

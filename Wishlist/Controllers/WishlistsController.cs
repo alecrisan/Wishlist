@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Wishlist.Hubs;
 using Wishlist.Services;
 
 namespace Wishlist.Controllers
@@ -12,15 +15,19 @@ namespace Wishlist.Controllers
     {
         private readonly IWishlistsService _wishlistsService;
 
-        public WishlistsController(IWishlistsService wishlistsService)
+        private readonly IHubContext<MessageHub> hub;
+
+        public WishlistsController(IWishlistsService wishlistsService, IHubContext<MessageHub> hub)
         {
             _wishlistsService = wishlistsService;
+            this.hub = hub;
         }
 
         [HttpGet]
         public async Task<ActionResult> GetWishlistByUserAsync()
         {
             var wishlist = await _wishlistsService.GetWishlistByUserAsync();
+            await hub.Clients.All.SendAsync("ReceiveMessage", "Hey! It seems like your wishlist is opened somewhere else.");
             return Ok(wishlist);
         }
 

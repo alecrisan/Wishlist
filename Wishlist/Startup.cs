@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Wishlist.Data;
+using Wishlist.Hubs;
 using Wishlist.Models;
 using Wishlist.Services;
 
@@ -47,6 +48,16 @@ namespace Wishlist
             services.AddControllersWithViews();
             //services.AddControllers().AddJsonOptions(x =>
             //x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+            services.AddSignalR();
+
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.WithOrigins("https://localhost:3001")
+                        .AllowCredentials();
+                });
+            });
 
             services.AddScoped<WishlistQueryContext>();
             services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
@@ -84,6 +95,8 @@ namespace Wishlist
 
             app.UseRouting();
 
+            app.UseCors();
+
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
@@ -92,6 +105,7 @@ namespace Wishlist
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<MessageHub>("/messagehub");
                 endpoints.MapRazorPages();
             });
 
