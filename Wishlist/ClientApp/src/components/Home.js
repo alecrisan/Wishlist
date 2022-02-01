@@ -50,7 +50,7 @@ async addWishlist(token) {
 
 establishConnection() {
   const connection = new HubConnectionBuilder()
-    .withUrl("https://localhost:5001/messagehub")
+    .withUrl("/messagehub")
     .withAutomaticReconnect()
     .build();
 
@@ -60,7 +60,6 @@ establishConnection() {
       .catch(err => console.log('Error while establishing connection :('));
 
   connection.on("ReceiveMessage", (message) => {
-    console.log(message);
     const li = document.createElement("li");
     li.textContent = `${message}`;
     li.className = 'notification';
@@ -69,7 +68,6 @@ establishConnection() {
 
     connection.onreconnecting(error => {
     console.assert(connection.state === signalR.HubConnectionState.Reconnecting);
-    console.log("reconnecting");
     const li = document.createElement("li");
     li.textContent = `Connection lost due to error "${error}". Reconnecting.`;
     document.getElementById("messageList").appendChild(li);

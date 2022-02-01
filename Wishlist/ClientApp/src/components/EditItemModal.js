@@ -26,7 +26,7 @@ export default class EditItemModal extends Component {
 
     async handleEdit() {
 
-        await fetch('api/items', {
+        await fetch('/api/items', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

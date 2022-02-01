@@ -1,0 +1,44 @@
+version: '3.4'
+
+services:
+  client:
+    image: "wishlist:client"
+    build:
+      network: host
+      context: ClientApp
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3001:3001
+    depends_on:
+      - help
+    links:
+      - help
+    restart: always
+
+  help:
+    image: "wishlist:help"
+    build:
+      network: host  
+      context: help
+      dockerfile: Dockerfile
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3002:3002
+    restart: always
+
+  wishlist:
+    image: "wishlist:main"
+    build:
+      network: host
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./app.db:/app/app.db
+    ports:
+      - 5001:80
+    depends_on:
+      - "client"
+    restart: always

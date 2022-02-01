@@ -7,7 +7,8 @@ module.exports = {
   mode: 'development',
   devServer: {
     port: 3002,
-    historyApiFallback: true
+    historyApiFallback: true,
+    host: '0.0.0.0',
   },
   output: {
     uniqueName: 'HELP',

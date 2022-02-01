@@ -1,10 +1,11 @@
+using System.IO;
 using System.Reflection;
-using System.Text.Json.Serialization;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,16 +47,16 @@ namespace Wishlist
                 .AddIdentityServerJwt();
 
             services.AddControllersWithViews();
-            //services.AddControllers().AddJsonOptions(x =>
-            //x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
             services.AddSignalR();
 
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
                 {
-                    builder.WithOrigins("https://localhost:3001")
+                    builder.WithOrigins("https://client:3001")
                         .AllowCredentials();
+                    //builder.WithOrigins("https://localhost:3001")
+                    //    .AllowCredentials();
                 });
             });
 
@@ -111,12 +112,13 @@ namespace Wishlist
 
             app.UseSpa(spa =>
             {
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = Path.Join(env.ContentRootPath, "ClientApp");
 
                 if (env.IsDevelopment())
                 {
                     //spa.UseReactDevelopmentServer(npmScript: "start");
-                    spa.UseProxyToSpaDevelopmentServer("http://localhost:3001");
+                    spa.UseProxyToSpaDevelopmentServer("http://client:3001");
+                    //spa.UseProxyToSpaDevelopmentServer("http://localhost:3001");
                 }
             });
         }

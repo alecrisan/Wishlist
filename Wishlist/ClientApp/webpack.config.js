@@ -8,7 +8,8 @@ module.exports = {
     entry: "./src/index",
     devServer: {
         port: 3001,
-        historyApiFallback: true
+        historyApiFallback: true,
+        allowedHosts: 'all'
     },
     output: {
         uniqueName: 'WISHLIST',
